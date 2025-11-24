@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.bikecarbooking.MainAppController">
+    
+    <!-- Top Bar -->
+    <top>
+        <HBox style="-fx-background-color: #2C3E50;" spacing="20" padding="15">
+            <Label text="Bike & Car Booking Platform" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #34495E;" padding="20">
+            <Button text="Book a Ride" style="-fx-background-color: #1ABC9C; -fx-text-fill: white; -fx-font-weight: bold;" maxWidth="150"/>
+            <Button text="My Bookings" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-font-weight: bold;" maxWidth="150"/>
+            <Button text="Profile" style="-fx-background-color: #E67E22; -fx-text-fill: white; -fx-font-weight: bold;" maxWidth="150"/>
+            <Button text="Logout" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold;" maxWidth="150"/>
+        </VBox>
+    </left>
+
+    <!-- Center Content -->
+    <center>
+        <StackPane style="-fx-background-color: #ECF0F1;">
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="Welcome to Bikes & Cars Booking!" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label text="Choose an option from the left menu to get started." style="-fx-font-size: 16px;"/>
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Book Now" style="-fx-background-color: #1ABC9C; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" prefWidth="120"/>
+                    <Button text="View History" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" prefWidth="120"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>
