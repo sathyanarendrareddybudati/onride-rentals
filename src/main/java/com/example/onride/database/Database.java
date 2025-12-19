@@ -6,16 +6,20 @@ import java.sql.SQLException;
 
 public class Database {
 
-    private static final String URL = System.getenv("DB_URL");
-    private static final String USER = System.getenv("DB_USER");
-    private static final String PASSWORD = System.getenv("DB_PASSWORD");
+    private static final String URL = "jdbc:mysql://localhost:3306/onride";
+    private static final String USER = "root";
+    private static final String PASSWORD = "password";
 
-    public static Connection getConnection() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("Database driver not found", e);
+    private static Connection connection = null;
+
+    public static Connection getConnection() {
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return connection;
     }
 }
