@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <VBox styleClass="header">
-         <children>
-            <Label styleClass="title" text="Vehicles" />
-            <Label styleClass="subtitle" text="Manage your vehicles." />
-         </children>
-      </VBox>
-   </top>
-   <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn prefWidth="100.0" text="ID" />
-          <TableColumn prefWidth="200.0" text="Make" />
-          <TableColumn prefWidth="200.0" text="Model" />
-            <TableColumn prefWidth="100.0" text="Year" />
-        </columns>
-      </TableView>
-   </center>
-</BorderPane>
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label styleClass="section-title" text="Available Vehicles" />
+      <ListView fx:id="vehiclesListView" prefHeight="300.0" prefWidth="700.0" />
+   </children>
+</VBox>
