@@ -2,6 +2,7 @@ package com.example.onride.controller;
 
 import com.example.onride.dao.UserDAO;
 import com.example.onride.model.User;
+import com.example.onride.model.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,14 +53,20 @@ public class SignUpViewController {
         user.setEmail(email);
 
         if (userDAO.signUp(user, password)) {
-            showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "You can now sign in");
-            // Navigate to the login view
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/onride/LoginView.fxml"));
-                Stage stage = (Stage) nameField.getScene().getWindow();
-                stage.setScene(new Scene(root, 1000, 600));
-            } catch (IOException e) {
-                e.printStackTrace();
+            User newUser = userDAO.login(email, password);
+            if (newUser != null) {
+                SessionManager.getInstance().setCurrentUser(newUser);
+                showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "Welcome " + newUser.getName());
+                // Navigate to the main view
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/example/onride/MainView.fxml"));
+                    Stage stage = (Stage) nameField.getScene().getWindow();
+                    stage.setScene(new Scene(root, 1000, 600));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Registration Failed!", "An unexpected error occurred.");
             }
         } else {
             showAlert(Alert.AlertType.ERROR, "Registration Failed!", "Email already exists");
