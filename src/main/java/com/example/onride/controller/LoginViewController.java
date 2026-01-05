@@ -2,6 +2,7 @@ package com.example.onride.controller;
 
 import com.example.onride.dao.UserDAO;
 import com.example.onride.model.User;
+import com.example.onride.model.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,7 @@ public class LoginViewController {
         User user = userDAO.login(email, password);
 
         if (user != null) {
+            SessionManager.getInstance().setCurrentUser(user);
             showAlert(Alert.AlertType.INFORMATION, "Login Successful!", "Welcome " + user.getName());
             // Navigate to the main view
             try {
