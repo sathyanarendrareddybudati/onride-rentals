@@ -29,7 +29,7 @@
             <StackPane fx:id="heroStack" prefHeight="750">
                 <ImageView fx:id="heroImage" preserveRatio="false" smooth="true" pickOnBounds="true">
                     <image>
-                        <Image url="@../../../images/HeroSection.jpeg"/>
+                        <Image url="@../../images/HeroSection.jpeg"/>
                     </image>
                 </ImageView>
                 <Region styleClass="hero-overlay"/>
@@ -71,7 +71,7 @@
                 </VBox>
                 <HBox alignment="CENTER" spacing="30">
                     <StackPane styleClass="fleet-card">
-                        <ImageView fitWidth="550" preserveRatio="true"><Image url="@/images/logo.jpeg"/></ImageView>
+                        <ImageView fitWidth="550" preserveRatio="true"><Image url="@../../images/logo.jpeg"/></ImageView>
                         <VBox alignment="BOTTOM_LEFT" spacing="10" styleClass="card-overlay">
                             <Label text="200+ Available" styleClass="badge-small"/>
                             <Label text="Bikes" styleClass="card-title-main"/>
@@ -79,7 +79,7 @@
                         </VBox>
                     </StackPane>
                     <StackPane styleClass="fleet-card">
-                        <ImageView fitWidth="550" preserveRatio="true"><Image url="@/images/HeroSection.jpeg"/></ImageView>
+                        <ImageView fitWidth="550" preserveRatio="true"><Image url="@../../images/HeroSection.jpeg"/></ImageView>
                         <VBox alignment="BOTTOM_LEFT" spacing="10" styleClass="card-overlay">
                             <Label text="300+ Available" styleClass="badge-small"/>
                             <Label text="Cars" styleClass="card-title-main"/>
@@ -134,7 +134,7 @@
                         </VBox>
                     </VBox>
                     <ImageView fitWidth="500" preserveRatio="true">
-                        <Image url="@/images/logo.jpeg"/>
+                        <Image url="@../../images/logo.jpeg"/>
                     </ImageView>
                 </HBox>
             </VBox>

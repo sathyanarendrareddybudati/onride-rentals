@@ -14,8 +14,11 @@ public class Vehicle {
     private String location;
     private String status;
     private Date createdAt;
+    private String registrationNumber;
+    private boolean availability;
+    private String imageUrl;
 
-    public Vehicle(int vehicleId, int renterId, String type, String brand, String model, int year, double pricePerDay, String location, String status, Date createdAt) {
+    public Vehicle(int vehicleId, int renterId, String type, String brand, String model, int year, double pricePerDay, String location, String status, Date createdAt, String registrationNumber, boolean availability, String imageUrl) {
         this.vehicleId = vehicleId;
         this.renterId = renterId;
         this.type = type;
@@ -26,6 +29,9 @@ public class Vehicle {
         this.location = location;
         this.status = status;
         this.createdAt = createdAt;
+        this.registrationNumber = registrationNumber;
+        this.availability = availability;
+        this.imageUrl = imageUrl;
     }
 
     public Vehicle() {
@@ -109,5 +115,29 @@ public class Vehicle {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

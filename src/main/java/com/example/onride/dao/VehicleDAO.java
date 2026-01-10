@@ -77,6 +77,19 @@ public class VehicleDAO {
         return vehicles;
     }
 
+    public void updateVehicleStatus(int vehicleId, String status) {
+        String sql = "UPDATE vehicles SET status = ? WHERE vehicle_id = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2, vehicleId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Vehicle extractVehicleFromResultSet(ResultSet resultSet) throws SQLException {
         Vehicle vehicle = new Vehicle();
         vehicle.setVehicleId(resultSet.getInt("vehicle_id"));

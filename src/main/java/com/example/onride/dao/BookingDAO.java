@@ -151,4 +151,8 @@ public class BookingDAO {
         booking.setCreatedAt(resultSet.getTimestamp("created_at"));
         return booking;
     }
+
+    public void createBooking(Booking booking) {
+        addBooking(booking);
+    }
 }

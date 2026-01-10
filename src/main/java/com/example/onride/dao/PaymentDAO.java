@@ -113,4 +113,8 @@ public class PaymentDAO {
         payment.setStatus(resultSet.getString("status"));
         return payment;
     }
+
+    public void createPayment(Payment payment) {
+        addPayment(payment);
+    }
 }
