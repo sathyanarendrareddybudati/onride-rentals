@@ -4,39 +4,35 @@ import java.util.Date;
 
 public class User {
 
-    private int id;
+    private int userId;
     private String name;
     private String email;
-    private String password;
-    private String phoneNumber;
-    private String address;
-    private String licenseNumber;
-    private String userType; // "customer" or "renter"
+    private String passwordHash;
+    private String phone;
+    private String role; // "ADMIN", "RENTER", "CUSTOMER"
+    private boolean isActive;
     private Date createdAt;
 
+    public User() {
+    }
 
-    public User(int id, String name, String email, String password, String phoneNumber, String address, String licenseNumber, String userType, Date createdAt) {
-        this.id = id;
+    public User(int userId, String name, String email, String passwordHash, String phone, String role, boolean isActive, Date createdAt) {
+        this.userId = userId;
         this.name = name;
         this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.licenseNumber = licenseNumber;
-        this.userType = userType;
+        this.passwordHash = passwordHash;
+        this.phone = phone;
+        this.role = role;
+        this.isActive = isActive;
         this.createdAt = createdAt;
     }
 
-    public User() {
-
+    public int getUserId() {
+        return userId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -55,44 +51,36 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
+    public String getRole() {
+        return role;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getLicenseNumber() {
-        return licenseNumber;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public Date getCreatedAt() {
@@ -101,5 +89,18 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    // Helper methods for role checking
+    public boolean isAdmin() {
+        return "ADMIN".equals(role);
+    }
+
+    public boolean isRenter() {
+        return "RENTER".equals(role);
+    }
+
+    public boolean isCustomer() {
+        return "CUSTOMER".equals(role);
     }
 }

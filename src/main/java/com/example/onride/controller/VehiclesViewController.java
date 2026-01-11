@@ -8,8 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,29 +30,64 @@ public class VehiclesViewController implements Initializable {
     private TextField searchField;
 
     @FXML
+    private FlowPane vehicleGrid;
+
+    @FXML
     private ComboBox<String> filterCombo;
 
     @FXML
     private ComboBox<String> sortCombo;
 
     @FXML
-    private GridPane vehicleGrid;
+    private ComboBox<String> locationCombo;
+
+    @FXML
+    private ToggleButton allToggle;
+
+    @FXML
+    private ToggleButton bikesToggle;
+
+    @FXML
+    private ToggleButton carsToggle;
+
+    @FXML
+    private Slider priceSlider;
+
+    private ToggleGroup vehicleTypeGroup;
 
     private VehicleDAO vehicleDAO = new VehicleDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialize filter combo
         filterCombo.getItems().addAll("All", "BIKE", "CAR");
         filterCombo.setValue("All");
 
+        // Initialize sort combo
         sortCombo.getItems().addAll("Price: Low to High", "Price: High to Low");
         sortCombo.setValue("Price: Low to High");
 
+        // Initialize location combo
+        locationCombo.getItems().addAll("All Locations", "New York", "Los Angeles", "Chicago", "Houston");
+        locationCombo.setValue("All Locations");
+
+        // Setup toggle group for vehicle type
+        vehicleTypeGroup = new ToggleGroup();
+        allToggle.setToggleGroup(vehicleTypeGroup);
+        bikesToggle.setToggleGroup(vehicleTypeGroup);
+        carsToggle.setToggleGroup(vehicleTypeGroup);
+        allToggle.setSelected(true);
+
+        // Load vehicles
         loadVehicles();
 
+        // Add listeners
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterAndSortVehicles());
         filterCombo.valueProperty().addListener((observable, oldValue, newValue) -> filterAndSortVehicles());
         sortCombo.valueProperty().addListener((observable, oldValue, newValue) -> filterAndSortVehicles());
+        locationCombo.valueProperty().addListener((observable, oldValue, newValue) -> filterAndSortVehicles());
+        vehicleTypeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> filterAndSortVehicles());
+        priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> filterAndSortVehicles());
     }
 
     private void loadVehicles() {
@@ -64,17 +102,31 @@ public class VehiclesViewController implements Initializable {
         String searchText = searchField.getText().toLowerCase();
         if (!searchText.isEmpty()) {
             vehicles = vehicles.stream()
-                    .filter(v -> v.getBrand().toLowerCase().contains(searchText) || v.getModel().toLowerCase().contains(searchText))
+                    .filter(v -> v.getBrand().toLowerCase().contains(searchText) || 
+                                 v.getModel().toLowerCase().contains(searchText))
                     .collect(Collectors.toList());
         }
 
         // Filter by type
-        String filterType = filterCombo.getValue();
-        if (!"All".equals(filterType)) {
-            vehicles = vehicles.stream()
-                    .filter(v -> v.getType().equalsIgnoreCase(filterType))
-                    .collect(Collectors.toList());
+        ToggleButton selectedToggle = (ToggleButton) vehicleTypeGroup.getSelectedToggle();
+        if (selectedToggle != null) {
+            String selectedType = selectedToggle.getText();
+            if ("Bikes".equals(selectedType)) {
+                vehicles = vehicles.stream()
+                        .filter(v -> "BIKE".equals(v.getType()))
+                        .collect(Collectors.toList());
+            } else if ("Cars".equals(selectedType)) {
+                vehicles = vehicles.stream()
+                        .filter(v -> "CAR".equals(v.getType()))
+                        .collect(Collectors.toList());
+            }
         }
+
+        // Filter by price
+        double maxPrice = priceSlider.getValue();
+        vehicles = vehicles.stream()
+                .filter(v -> v.getPricePerDay() <= maxPrice)
+                .collect(Collectors.toList());
 
         // Sort by price
         String sortType = sortCombo.getValue();
@@ -90,9 +142,6 @@ public class VehiclesViewController implements Initializable {
     private void displayVehicles(List<Vehicle> vehicles) {
         vehicleGrid.getChildren().clear();
 
-        int row = 0;
-        int col = 0;
-
         for (Vehicle vehicle : vehicles) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/onride/VehicleCard.fxml"));
@@ -100,13 +149,7 @@ public class VehiclesViewController implements Initializable {
                 VehicleCardController controller = loader.getController();
                 controller.setVehicle(vehicle);
 
-                vehicleGrid.add(vehicleCard, col, row);
-
-                col++;
-                if (col == 3) {
-                    col = 0;
-                    row++;
-                }
+                vehicleGrid.getChildren().add(vehicleCard);
             } catch (IOException e) {
                 e.printStackTrace();
             }

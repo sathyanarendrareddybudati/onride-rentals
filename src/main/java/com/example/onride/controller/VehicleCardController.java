@@ -2,7 +2,6 @@ package com.example.onride.controller;
 
 import com.example.onride.model.Vehicle;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,16 +9,22 @@ import javafx.scene.image.ImageView;
 public class VehicleCardController {
 
     @FXML
-    private ImageView vehicleImageView;
+    private ImageView vehicleImage;
 
     @FXML
-    private Label vehicleNameLabel;
+    private Label title;
 
     @FXML
-    private Label priceLabel;
+    private Label subtitle;
 
     @FXML
-    private Button bookButton;
+    private Label location;
+
+    @FXML
+    private Label price;
+
+    @FXML
+    private Label typeBadge;
 
     private Vehicle vehicle;
 
@@ -30,23 +35,35 @@ public class VehicleCardController {
 
     private void updateView() {
         if (vehicle != null) {
-            vehicleNameLabel.setText(vehicle.getBrand() + " " + vehicle.getModel());
-            priceLabel.setText(String.format("$%.2f / day", vehicle.getPricePerDay()));
+            title.setText(vehicle.getBrand() + " " + vehicle.getModel());
+            subtitle.setText("Year: " + vehicle.getYear());
+            location.setText("📍 " + vehicle.getLocation());
+            price.setText(String.format("$%.2f/day", vehicle.getPricePerDay()));
+            typeBadge.setText(vehicle.getType());
 
             if (vehicle.getImageUrl() != null && !vehicle.getImageUrl().isEmpty()) {
                 try {
                     Image image = new Image(vehicle.getImageUrl());
-                    vehicleImageView.setImage(image);
+                    vehicleImage.setImage(image);
                 } catch (Exception e) {
                     // Use a default image if the URL is invalid
-                    Image defaultImage = new Image(getClass().getResourceAsStream("/images/default_vehicle.png"));
-                    vehicleImageView.setImage(defaultImage);
+                    loadDefaultImage();
                 }
             } else {
                 // Use a default image if no URL is provided
-                Image defaultImage = new Image(getClass().getResourceAsStream("/images/default_vehicle.png"));
-                vehicleImageView.setImage(defaultImage);
+                loadDefaultImage();
             }
+        }
+    }
+
+    private void loadDefaultImage() {
+        try {
+            Image defaultImage = new Image(getClass().getResourceAsStream("/images/default_vehicle.png"));
+            if (defaultImage != null) {
+                vehicleImage.setImage(defaultImage);
+            }
+        } catch (Exception e) {
+            System.out.println("Default image not found");
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.onride.controller;
 
 import java.io.IOException;
 
+import com.example.onride.OnRideApplication;
 import com.example.onride.dao.UserDAO;
 import com.example.onride.model.User;
 
@@ -44,13 +45,33 @@ public class LoginViewController {
 
         if (user != null) {
             showAlert(Alert.AlertType.INFORMATION, "Login Successful!", "Welcome " + user.getName());
-            // Navigate to the main view
+            
+            // Set current user in application
+            OnRideApplication.setCurrentUser(user);
+            
+            // Navigate based on user role
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/onride/MainView.fxml"));
+                String viewPath;
+                String title;
+                
+                if (user.isAdmin()) {
+                    viewPath = "/com/example/onride/AdminView.fxml";
+                    title = "OnRide - Admin Dashboard";
+                } else if (user.isRenter()) {
+                    viewPath = "/com/example/onride/HomeView.fxml";
+                    title = "OnRide - Renter Dashboard";
+                } else {
+                    viewPath = "/com/example/onride/HomeView.fxml";
+                    title = "OnRide - Customer Dashboard";
+                }
+                
+                Parent root = FXMLLoader.load(getClass().getResource(viewPath));
                 Stage stage = (Stage) emailField.getScene().getWindow();
+                stage.setTitle(title);
                 stage.setScene(new Scene(root, 1000, 600));
             } catch (IOException e) {
                 e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load dashboard: " + e.getMessage());
             }
         } else {
             showAlert(Alert.AlertType.ERROR, "Login Failed!", "Invalid email or password");

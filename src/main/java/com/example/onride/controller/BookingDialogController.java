@@ -62,7 +62,7 @@ public class BookingDialogController {
         Booking booking = new Booking();
         // prefer session user if available
         User current = SessionManager.getInstance().getCurrentUser();
-        if (current != null) booking.setCustomerId(current.getId());
+        if (current != null) booking.setCustomerId(current.getUserId());
         else booking.setCustomerId(customerId);
         booking.setVehicleId(vehicle.getVehicleId());
         booking.setStartDate(Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));

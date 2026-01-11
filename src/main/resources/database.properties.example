@@ -1,0 +1,8 @@
+# Database Configuration Example
+# Copy this file to database.properties and update with your database details
+
+MASTER_DB_HOST=localhost
+MASTER_DB_PORT=3306
+MASTER_DB_NAME=onride_rentals
+MASTER_DB_USER=root
+MASTER_DB_PASSWORD=your_password_here

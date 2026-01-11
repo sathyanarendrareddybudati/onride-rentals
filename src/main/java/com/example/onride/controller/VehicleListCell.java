@@ -86,7 +86,7 @@ public class VehicleListCell extends ListCell<Vehicle> {
                         // Use session user if available
                         com.example.onride.model.User current = com.example.onride.model.SessionManager.getInstance().getCurrentUser();
                         if (current != null) {
-                            controller.setUserId(current.getId());
+                            controller.setUserId(current.getUserId());
                         } else {
                             controller.setUserId(1); // fallback demo id
                         }
