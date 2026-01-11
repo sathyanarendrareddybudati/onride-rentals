@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class RegisterController {
 
@@ -27,6 +28,7 @@ public class RegisterController {
     private UserDAO userDAO;
 
     public void initialize() {
+        System.out.println("RegisterController initialized");
         userDAO = new UserDAO();
         userTypeChoiceBox.setItems(FXCollections.observableArrayList("Customer", "Renter"));
         userTypeChoiceBox.setValue("Customer"); // Default role
@@ -36,10 +38,16 @@ public class RegisterController {
     private void register() {
         String username = usernameField.getText();
         String email = emailField.getText();
-        String password = passwordField.getText();
-        String userType = userTypeChoiceBox.getValue();
+        String password_hash = passwordField.getText();
+        String role = userTypeChoiceBox.getValue();
+        String dbRole;
+        if ("Renter".equals(role)) {
+            dbRole = "-2";
+        } else {
+            dbRole = "-3"; // Customer
+        }
 
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || userType == null) {
+        if (username.isEmpty() || email.isEmpty() || password_hash.isEmpty() || role == null) {
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please fill in all fields.");
             return;
         }
@@ -50,16 +58,19 @@ public class RegisterController {
         }
 
         User newUser = new User();
-        newUser.setUsername(username);
+        newUser.setName(username);
         newUser.setEmail(email);
-        newUser.setPassword(password); // In a real app, hash the password
-        newUser.setUserType(userType);
+        newUser.setPassword(password_hash); // In a real app, hash the password_hash
+        newUser.setRole(dbRole);
 
-        userDAO.addUser(newUser);
-
-        showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "You have successfully registered. Please log in.");
-
-        backToLogin();
+        try {
+            userDAO.addUser(newUser);
+            showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "You have successfully registered. Please log in.");
+            backToLogin();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Registration Failed", "Database error: " + e.getMessage());
+        }
     }
 
     @FXML

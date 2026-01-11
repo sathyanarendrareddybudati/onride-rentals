@@ -2,22 +2,23 @@ package com.onriderentals.model;
 
 public class User {
     private int userId;
-    private String username;
+    private String name;
     private String email;
-    private String password;
-    private String userType;
+    private String password_hash;
+    private String role;
     private String phone;
     private boolean isActive;
 
     // Default constructor
     public User() {}
 
-    public User(int userId, String username, String email, String password, String userType, String phone, boolean isActive) {
+    public User(int userId, String name, String email, String password_hash, String role, String phone,
+            boolean isActive) {
         this.userId = userId;
-        this.username = username;
+        this.name = name;
         this.email = email;
-        this.password = password;
-        this.userType = userType;
+        this.password_hash = password_hash;
+        this.role = role;
         this.phone = phone;
         this.isActive = isActive;
     }
@@ -32,12 +33,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -49,19 +50,19 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return password_hash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password_hash) {
+        this.password_hash = password_hash;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getPhone() {

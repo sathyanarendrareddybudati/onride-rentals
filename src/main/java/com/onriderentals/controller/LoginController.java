@@ -37,26 +37,26 @@ public class LoginController {
     public void login() {
         try {
             String email = emailField.getText();
-            String password = passwordField.getText();
+            String password_hash = passwordField.getText();
 
-            if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
-                messageLabel.setText("Please enter email and password");
+            if (email == null || email.isEmpty() || password_hash == null || password_hash.isEmpty()) {
+                messageLabel.setText("Please enter email and password_hash");
                 return;
             }
 
             User user = userDAO.getUserByEmail(email);
 
-            if (user != null && user.getPassword().equals(password)) {
+            if (user != null && user.getPassword().equals(password_hash)) {
                 SessionManager.getInstance().setUserId(user.getUserId());
-                String userType = user.getUserType();
-                switch (userType) {
-                    case "Admin":
+                String role = user.getRole();
+                switch (role) {
+                    case "-1":
                         SceneManager.switchScene("AdminDashboard");
                         break;
-                    case "Renter":
+                    case "-2":
                         SceneManager.switchScene("RenterDashboard");
                         break;
-                    case "Customer":
+                    case "-3":
                         SceneManager.switchScene("CustomerDashboard");
                         break;
                     default:
@@ -64,7 +64,7 @@ public class LoginController {
                         break;
                 }
             } else {
-                messageLabel.setText("Invalid email or password.");
+                messageLabel.setText("Invalid email or password_hash.");
             }
         } catch (Exception e) {
             messageLabel.setText("Login error: " + e.getMessage());

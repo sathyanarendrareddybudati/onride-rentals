@@ -16,14 +16,17 @@
 
 <BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.AdminDashboardController">
    <top>
-      <Label text="Admin Dashboard" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </Label>
+       <VBox>
+           <fx:include source="Navbar.fxml"/>
+          <Label text="Admin Dashboard" BorderPane.alignment="CENTER" styleClass="label-title">
+             <font>
+                <Font name="System Bold" size="24.0" />
+             </font>
+             <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+             </padding>
+          </Label>
+       </VBox>
    </top>
    <center>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">

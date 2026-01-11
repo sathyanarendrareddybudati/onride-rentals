@@ -21,10 +21,10 @@ public class UserDAO {
             if (rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt("user_id"));
-                user.setUsername(rs.getString("username"));
+                user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setRole(rs.getString("role"));
                 user.setPhone(rs.getString("phone"));
                 user.setActive(rs.getBoolean("is_active"));
                 return user;
@@ -46,10 +46,10 @@ public class UserDAO {
             if (rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt("user_id"));
-                user.setUsername(rs.getString("username"));
+                user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setRole(rs.getString("role"));
                 user.setPhone(rs.getString("phone"));
                 user.setActive(rs.getBoolean("is_active"));
                 return user;
@@ -70,10 +70,10 @@ public class UserDAO {
             while (rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt("user_id"));
-                user.setUsername(rs.getString("username"));
+                user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setRole(rs.getString("role"));
                 user.setPhone(rs.getString("phone"));
                 user.setActive(rs.getBoolean("is_active"));
                 users.add(user);
@@ -84,33 +84,30 @@ public class UserDAO {
         return users;
     }
 
-    public void addUser(User user) {
-        String sql = "INSERT INTO users (username, email, password, user_type, phone, is_active) VALUES (?, ?, ?, ?, ?, ?)";
+    public void addUser(User user) throws SQLException {
+        String sql = "INSERT INTO users (name, email, password_hash, role, phone, is_active) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, user.getUsername());
+            stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getUserType());
+            stmt.setString(4, user.getRole());
             stmt.setString(5, user.getPhone());
             stmt.setBoolean(6, user.isActive());
             stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     public void updateUser(User user) {
-        String sql = "UPDATE users SET username = ?, email = ?, password = ?, user_type = ?, phone = ?, is_active = ? WHERE user_id = ?";
+        String sql = "UPDATE users SET name = ?, email = ?, password_hash = ?, role = ?, phone = ?, is_active = ? WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, user.getUsername());
+            stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getUserType());
+            stmt.setString(4, user.getRole());
             stmt.setString(5, user.getPhone());
             stmt.setBoolean(6, user.isActive());
             stmt.setInt(7, user.getUserId());

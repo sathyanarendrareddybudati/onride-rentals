@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox alignment="CENTER_LEFT" styleClass="navbar" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.NavbarController">
+    <children>
+        <Label styleClass="label-title" text="OnRide" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleHome" styleClass="nav-link" text="Home" />
+        <Button onAction="#handleBrowseVehicles" styleClass="nav-link" text="Browse Vehicles" />
+        <Button onAction="#handleLogin" styleClass="nav-link" text="Log In" />
+        <Button onAction="#handleRegister" styleClass="nav-btn-primary" text="Register" />
+    </children>
+</HBox>

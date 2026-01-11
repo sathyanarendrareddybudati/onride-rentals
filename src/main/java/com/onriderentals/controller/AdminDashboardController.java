@@ -96,15 +96,15 @@ public class AdminDashboardController {
 
     private void setupUserTable() {
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
+        userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         addUserActionsButtonToTable();
     }
 
     private void setupBookingTable() {
         bookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookingId"));
-        customerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomer().getUsername()));
+        customerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
         vehicleInfoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVehicle().getMake() + " " + cellData.getValue().getVehicle().getModel()));
         bookingDatesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate().toString() + " to " + cellData.getValue().getEndDate().toString()));
         bookingCostColumn.setCellValueFactory(new PropertyValueFactory<>("totalCost"));

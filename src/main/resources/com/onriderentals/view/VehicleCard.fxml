@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.geometry.Pos?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.onriderentals.controller.VehicleCardController"
+      styleClass="vehicle-card" maxWidth="280">
+    
+    <StackPane>
+        <ImageView fx:id="vehicleImage" fitWidth="260" fitHeight="160" preserveRatio="true" styleClass="card-image-view" />
+        <Button fx:id="favoriteButton" styleClass="button-ghost" text="♡" StackPane.alignment="TOP_RIGHT" style="-fx-font-size: 20px; -fx-padding: 5;" />
+        <Label fx:id="typeBadge" text="Car" styleClass="badge" StackPane.alignment="TOP_LEFT" style="-fx-translate-x: 10; -fx-translate-y: 10;" />
+    </StackPane>
+    
+    <VBox spacing="5" style="-fx-padding: 10 0 0 0;">
+        <Label fx:id="vehicleName" text="Luxury Sedan Pro" styleClass="card-title" />
+        <Label fx:id="vehicleModel" text="BMW M5 - 2024" styleClass="card-subtitle" />
+        
+        <HBox spacing="5" style="-fx-padding: 5 0;">
+             <Label text="Location:" styleClass="label-subtitle" style="-fx-font-size: 12px;" />
+             <Label fx:id="locationLabel" text="Los Angeles" styleClass="label" style="-fx-font-size: 12px;" />
+        </HBox>
+
+        <FlowPane hgap="5" vgap="5">
+            <Label text="Automatic" styleClass="badge" />
+            <Label text="Diesel" styleClass="badge" />
+            <Label text="5 Seats" styleClass="badge" />
+        </FlowPane>
+        
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label text="★" style="-fx-text-fill: #ff9900;" />
+            <Label fx:id="ratingLabel" text="4.8" styleClass="score-label" />
+            <Label fx:id="reviewCountLabel" text="(89 reviews)" styleClass="label-subtitle" style="-fx-font-size: 12px;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="priceLabel" text="\$150" styleClass="card-price" />
+            <Label text="/day" styleClass="card-price-period" />
+        </HBox>
+        
+        <Button fx:id="bookButton" text="Book Now" styleClass="button-primary" maxWidth="Infinity" onAction="#handleBook" />
+    </VBox>
+</VBox>

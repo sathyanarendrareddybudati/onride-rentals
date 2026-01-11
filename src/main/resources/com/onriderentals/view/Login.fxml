@@ -8,24 +8,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.LoginController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.LoginController" styleClass="root" stylesheets="@styles.css">
+    
+    <fx:include source="Navbar.fxml"/>
+    
+    <VBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
 
-    <Label text="Login">
-        <font>
-            <Font name="System Bold" size="24.0" />
-        </font>
-    </Label>
+        <Label text="Login" styleClass="label-title">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
 
-    <TextField fx:id="emailField" promptText="Email" />
-    <PasswordField fx:id="passwordField" promptText="Password" />
+        <VBox maxWidth="300" spacing="10" styleClass="card" style="-fx-padding: 30;">
+            <TextField fx:id="emailField" promptText="Email" />
+            <PasswordField fx:id="passwordField" promptText="Password" />
 
-    <Button fx:id="loginButton" onAction="#login" text="Login" />
-    <Button fx:id="registerButton" onAction="#goToRegister" text="Register" />
-    <Button fx:id="vehicleRentalButton" onAction="#goToVehicleRental" text="Vehicle Rental" />
+            <Button fx:id="loginButton" onAction="#login" text="Login" maxWidth="Infinity" styleClass="button-primary" />
+            <Button fx:id="registerButton" onAction="#goToRegister" text="Create Account" maxWidth="Infinity" styleClass="button-ghost" />
+        </VBox>
 
-    <Label fx:id="messageLabel" />
-
+        <Label fx:id="messageLabel" style="-fx-text-fill: red;" />
+    </VBox>
 </VBox>
+
+
