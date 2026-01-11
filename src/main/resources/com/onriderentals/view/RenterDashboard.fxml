@@ -10,73 +10,149 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.RenterDashboardController" styleClass="root" stylesheets="@styles.css">
-
-    <fx:include source="Navbar.fxml"/>
+    <children>
+        <fx:include source="Navbar.fxml"/>
+        
+       <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+          <content>
+            <VBox spacing="30" style="-fx-padding: 30; -fx-background-color: #f8f9fa;">
+               <children>
+                  <!-- Page Title -->
+                  <VBox spacing="5">
+                     <Label text="Renter Dashboard" styleClass="label-title" style="-fx-text-fill: #333;"/>
+                     <Label text="Manage your vehicles and track your earnings" styleClass="label-subtitle"/>
+                  </VBox>
     
-    <AnchorPane VBox.vgrow="ALWAYS">
-       <children>
-          <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-             <Label styleClass="label-subtitle" text="My Vehicles" />
-             <TableView fx:id="vehicleTable" prefHeight="300">
-                <columns>
-                   <TableColumn fx:id="makeColumn" text="Make" />
-                   <TableColumn fx:id="modelColumn" text="Model" />
-                   <TableColumn fx:id="yearColumn" text="Year" />
-                   <TableColumn fx:id="typeColumn" text="Type" />
-                   <TableColumn fx:id="licensePlateColumn" text="License Plate" />
-                    <TableColumn fx:id="pricePerDayColumn" text="Rental Rate" />
-                   <TableColumn fx:id="statusColumn" text="Status" />
-                </columns>
-             </TableView>
-             
-             <Label styleClass="label-subtitle" style="-fx-padding: 20 0 0 0;" text="Add/Edit Vehicle" />
-              <GridPane hgap="10" vgap="5">
-                  <columnConstraints>
-                      <ColumnConstraints minWidth="100"/>
-                      <ColumnConstraints hgrow="ALWAYS"/>
-                  </columnConstraints>
+                  <!-- Stats Cards Row -->
+                  <HBox spacing="20.0" alignment="CENTER_LEFT">
+                     <children>
+                        <!-- Total Earnings Card -->
+                        <HBox styleClass="stat-card">
+                           <children>
+                              <VBox styleClass="stat-icon-container, icon-green" alignment="CENTER">
+                                 <Label text="💰" styleClass="stat-icon-label"/>
+                              </VBox>
+                              <VBox styleClass="stat-content">
+                                 <Label text="&#36;12,450" styleClass="stat-value"/>
+                                 <Label text="Total Earnings" styleClass="stat-label"/>
+                                 <Label text="↗ 15% this month" styleClass="stat-trend-up"/>
+                              </VBox>
+                           </children>
+                        </HBox>
     
-                  <Label text="Make:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="makeField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <!-- Listed Vehicles Card -->
+                        <HBox styleClass="stat-card">
+                           <children>
+                              <VBox styleClass="stat-icon-container, icon-blue" alignment="CENTER">
+                                 <Label text="🚗" styleClass="stat-icon-label"/>
+                              </VBox>
+                              <VBox styleClass="stat-content">
+                                 <Label text="8" styleClass="stat-value"/>
+                                 <Label text="Listed Vehicles" styleClass="stat-label"/>
+                              </VBox>
+                           </children>
+                        </HBox>
     
-                  <Label text="Model:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="modelField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <!-- Active Bookings Card -->
+                        <HBox styleClass="stat-card">
+                           <children>
+                              <VBox styleClass="stat-icon-container, icon-orange" alignment="CENTER">
+                                 <Label text="📅" styleClass="stat-icon-label"/>
+                              </VBox>
+                              <VBox styleClass="stat-content">
+                                 <Label text="3" styleClass="stat-value"/>
+                                 <Label text="Active Bookings" styleClass="stat-label"/>
+                                 <Label text="↗ 2 new requests" styleClass="stat-trend-up"/>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
     
-                  <Label text="Year:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="yearField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                  
-                  <Label text="Color:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                  
-                  <Label text="License Plate:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="licensePlateField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                  
-                  <Label text="VIN:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="vinField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-    
-                  <Label text="Type:" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="typeField" GridPane.rowIndex="6" GridPane.columnIndex="1" promptText="e.g., BIKE, CAR"/>
-    
-                  <Label text="Mileage:" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="mileageField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-                  
-                  <Label text="Rental Rate:" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="label"/>
-                  <TextField fx:id="pricePerDayField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-    
-              </GridPane>
-    
-              <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
-                  <Button onAction="#addVehicle" text="Add Vehicle" styleClass="button-primary"/>
-                  <Button onAction="#updateVehicle" text="Update Vehicle" styleClass="button-secondary"/>
-                  <Button onAction="#deleteVehicle" text="Delete Vehicle" styleClass="button-outline"/>
-                  <Button onAction="#clearForm" text="Clear" styleClass="button-ghost"/>
-              </HBox>
-    
-          </VBox>
-       </children>
-    </AnchorPane>
+                  <HBox spacing="30">
+                      <children>
+                          <!-- Vehicles Table Section -->
+                          <VBox spacing="15" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);">
+                              <children>
+                                  <Label text="My Vehicles" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+                                  <TableView fx:id="vehicleTable" prefHeight="400">
+                                     <columns>
+                                        <TableColumn fx:id="makeColumn" text="Make" />
+                                        <TableColumn fx:id="modelColumn" text="Model" />
+                                        <TableColumn fx:id="yearColumn" text="Year" />
+                                        <TableColumn fx:id="typeColumn" text="Type" />
+                                        <TableColumn fx:id="licensePlateColumn" text="License Plate" />
+                                        <TableColumn fx:id="pricePerDayColumn" text="Rental Rate" />
+                                        <TableColumn fx:id="statusColumn" text="Status" />
+                                     </columns>
+                                  </TableView>
+                              </children>
+                          </VBox>
+        
+                          <!-- Add/Edit Vehicle Form Section -->
+                          <VBox spacing="15" prefWidth="350" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);">
+                              <children>
+                                  <Label text="Vehicle Details" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+                                  
+                                  <GridPane hgap="10" vgap="15">
+                                      <columnConstraints>
+                                          <ColumnConstraints minWidth="80"/>
+                                          <ColumnConstraints hgrow="ALWAYS"/>
+                                      </columnConstraints>
+                                      <children>
+                                          <Label text="Make:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="makeField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            
+                                          <Label text="Model:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="modelField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                                          <Label text="Year:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="yearField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                          
+                                          <Label text="Color:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                          
+                                          <Label text="License Plate:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="licensePlateField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                                          
+                                          <Label text="VIN:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="vinField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                            
+                                          <Label text="Type:" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="typeField" GridPane.rowIndex="6" GridPane.columnIndex="1" promptText="e.g., BIKE, CAR"/>
+                            
+                                          <Label text="Mileage:" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="mileageField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                                          
+                                          <Label text="Rental Rate:" GridPane.rowIndex="8" GridPane.columnIndex="0" style="-fx-text-fill: #666;"/>
+                                          <TextField fx:id="pricePerDayField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                                      </children>
+                                  </GridPane>
+                        
+                                  <VBox spacing="10" style="-fx-padding: 20 0 0 0;">
+                                      <children>
+                                          <Button onAction="#addVehicle" text="Add Vehicle" styleClass="button-primary" prefWidth="Infinity"/>
+                                          <HBox spacing="10">
+                                              <children>
+                                                  <Button onAction="#updateVehicle" text="Update" styleClass="button-secondary" prefWidth="150"/>
+                                                  <Button onAction="#deleteVehicle" text="Delete" styleClass="button-danger" prefWidth="150"/>
+                                              </children>
+                                          </HBox>
+                                          <Button onAction="#clearForm" text="Clear Form" styleClass="button-ghost" prefWidth="Infinity"/>
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </VBox>
+                      </children>
+                  </HBox>
+               </children>
+            </VBox>
+          </content>
+       </ScrollPane>
+    </children>
 </VBox>
 
 

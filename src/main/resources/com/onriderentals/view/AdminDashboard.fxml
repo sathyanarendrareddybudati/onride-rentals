@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.AdminDashboardController">
@@ -29,85 +30,153 @@
        </VBox>
    </top>
    <center>
-      <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" styleClass="dashboard-tabs">
          <tabs>
+            <Tab text="Dashboard">
+               <content>
+                   <VBox spacing="30.0" style="-fx-padding: 30; -fx-background-color: #f8f9fa;">
+                      <children>
+                          <!-- Stats Cards Row -->
+                          <HBox spacing="20.0" alignment="CENTER_LEFT">
+                             <children>
+                                <!-- Total Users Card -->
+                                <HBox styleClass="stat-card">
+                                   <children>
+                                      <VBox styleClass="stat-icon-container, icon-blue" alignment="CENTER">
+                                         <Label text="👥" styleClass="stat-icon-label"/>
+                                      </VBox>
+                                      <VBox styleClass="stat-content">
+                                         <Label text="1,250" styleClass="stat-value"/>
+                                         <Label text="Total Users" styleClass="stat-label"/>
+                                         <Label text="↗ 12% this month" styleClass="stat-trend-up"/>
+                                      </VBox>
+                                   </children>
+                                </HBox>
+
+                                <!-- Total Revenue Card -->
+                                <HBox styleClass="stat-card">
+                                   <children>
+                                      <VBox styleClass="stat-icon-container, icon-green" alignment="CENTER">
+                                         <Label text="💰" styleClass="stat-icon-label"/>
+                                      </VBox>
+                                      <VBox styleClass="stat-content">
+                                          <Label text="&#36;45,200" styleClass="stat-value"/>
+                                         <Label text="Total Revenue" styleClass="stat-label"/>
+                                         <Label text="↗ 8% this month" styleClass="stat-trend-up"/>
+                                      </VBox>
+                                   </children>
+                                </HBox>
+
+                                <!-- Active Bookings Card -->
+                                <HBox styleClass="stat-card">
+                                   <children>
+                                      <VBox styleClass="stat-icon-container, icon-orange" alignment="CENTER">
+                                         <Label text="📅" styleClass="stat-icon-label"/>
+                                      </VBox>
+                                      <VBox styleClass="stat-content">
+                                         <Label text="340" styleClass="stat-value"/>
+                                         <Label text="Active Bookings" styleClass="stat-label"/>
+                                         <Label text="↗ 5% this week" styleClass="stat-trend-up"/>
+                                      </VBox>
+                                   </children>
+                                </HBox>
+                                
+                                <!-- Vehicles Listed -->
+                                <HBox styleClass="stat-card">
+                                   <children>
+                                      <VBox styleClass="stat-icon-container, icon-purple" alignment="CENTER">
+                                         <Label text="🚗" styleClass="stat-icon-label"/>
+                                      </VBox>
+                                      <VBox styleClass="stat-content">
+                                         <Label text="520" styleClass="stat-value"/>
+                                         <Label text="Vehicles" styleClass="stat-label"/>
+                                      </VBox>
+                                   </children>
+                                </HBox>
+                             </children>
+                          </HBox>
+
+                          <!-- Charts Section -->
+                          <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                              <children>
+                                  <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                                      <padding>
+                                          <Insets top="20" right="20" bottom="20" left="20"/>
+                                      </padding>
+                                      <children>
+                                          <Label text="Revenue Overview" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                                          <BarChart fx:id="earningsChart" legendVisible="false" verticalGridLinesVisible="false">
+                                             <xAxis>
+                                                <CategoryAxis label="Month" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis label="Earnings ($)" />
+                                             </yAxis>
+                                          </BarChart>
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </HBox>
+                      </children>
+                   </VBox>
+               </content>
+            </Tab>
+
             <Tab text="User Management">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f8f9fa; -fx-padding: 20;">
                      <children>
-                        <TableView fx:id="userTable" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                        <TableView fx:id="userTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);">
                            <columns>
                               <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="User ID" />
                               <TableColumn fx:id="usernameColumn" prefWidth="150.0" text="Username" />
-                              <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
-                              <TableColumn fx:id="userTypeColumn" prefWidth="100.0" text="User Type" />
-                              <TableColumn fx:id="userActionsColumn" prefWidth="200.0" text="Actions" />
+                              <TableColumn fx:id="emailColumn" prefWidth="250.0" text="Email" />
+                              <TableColumn fx:id="userTypeColumn" prefWidth="120.0" text="Role" />
+                              <TableColumn fx:id="userActionsColumn" prefWidth="150.0" text="Actions" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Booking Reports">
+            
+            <Tab text="Bookings">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f8f9fa; -fx-padding: 20;">
                      <children>
-                        <TableView fx:id="bookingTable" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                        <TableView fx:id="bookingTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);">
                            <columns>
-                              <TableColumn fx:id="bookingIdColumn" prefWidth="75.0" text="Booking ID" />
+                              <TableColumn fx:id="bookingIdColumn" prefWidth="80.0" text="ID" />
                               <TableColumn fx:id="customerNameColumn" prefWidth="150.0" text="Customer" />
                               <TableColumn fx:id="vehicleInfoColumn" prefWidth="200.0" text="Vehicle" />
                               <TableColumn fx:id="bookingDatesColumn" prefWidth="200.0" text="Dates" />
-                              <TableColumn fx:id="bookingCostColumn" prefWidth="100.0" text="Cost" />
-                              <TableColumn fx:id="bookingStatusColumn" prefWidth="100.0" text="Status" />
+                              <TableColumn fx:id="bookingCostColumn" prefWidth="120.0" text="Cost" />
+                              <TableColumn fx:id="bookingStatusColumn" prefWidth="120.0" text="Status" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Vehicle Management">
+
+            <Tab text="Vehicles">
                 <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f8f9fa; -fx-padding: 20;">
                         <children>
-                            <TableView fx:id="vehicleTable" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <TableView fx:id="vehicleTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);">
                                 <columns>
-                                    <TableColumn fx:id="vehicleIdColumn" prefWidth="75.0" text="Vehicle ID" />
+                                    <TableColumn fx:id="vehicleIdColumn" prefWidth="80.0" text="ID" />
                                     <TableColumn fx:id="vehicleMakeColumn" prefWidth="120.0" text="Make" />
                                     <TableColumn fx:id="vehicleModelColumn" prefWidth="120.0" text="Model" />
                                     <TableColumn fx:id="vehicleTypeColumn" prefWidth="100.0" text="Type" />
                                     <TableColumn fx:id="vehiclePriceColumn" prefWidth="100.0" text="Price/Day" />
-                                    <TableColumn fx:id="vehicleStatusColumn" prefWidth="100.0" text="Status" />
+                                    <TableColumn fx:id="vehicleStatusColumn" prefWidth="120.0" text="Status" />
                                 </columns>
                             </TableView>
                         </children>
                     </AnchorPane>
                 </content>
             </Tab>
-             <Tab text="Financial Overview">
-                 <content>
-                     <VBox alignment="CENTER" spacing="20.0">
-                         <padding>
-                             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                         </padding>
-                         <children>
-                             <Label text="Monthly Earnings">
-                                 <font>
-                                     <Font name="System Bold" size="18.0" />
-                                 </font>
-                             </Label>
-                             <BarChart fx:id="earningsChart" prefHeight="400.0" prefWidth="700.0">
-                                 <xAxis>
-                                     <CategoryAxis label="Month" />
-                                 </xAxis>
-                                 <yAxis>
-                                     <NumberAxis label="Earnings" />
-                                 </yAxis>
-                             </BarChart>
-                         </children>
-                     </VBox>
-                 </content>
-             </Tab>
          </tabs>
       </TabPane>
    </center>

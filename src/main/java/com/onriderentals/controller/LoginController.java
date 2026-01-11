@@ -49,6 +49,7 @@ public class LoginController {
             if (user != null && user.getPassword().equals(password_hash)) {
                 SessionManager.getInstance().setUserId(user.getUserId());
                 String role = user.getRole();
+                SessionManager.getInstance().setUserRole(role);
                 switch (role) {
                     case "-1":
                         SceneManager.switchScene("AdminDashboard");

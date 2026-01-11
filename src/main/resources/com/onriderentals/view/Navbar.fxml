@@ -11,7 +11,9 @@
         <Region HBox.hgrow="ALWAYS" />
         <Button onAction="#handleHome" styleClass="nav-link" text="Home" />
         <Button onAction="#handleBrowseVehicles" styleClass="nav-link" text="Browse Vehicles" />
-        <Button onAction="#handleLogin" styleClass="nav-link" text="Log In" />
-        <Button onAction="#handleRegister" styleClass="nav-btn-primary" text="Register" />
+        <Button fx:id="dashboardBtn" onAction="#handleDashboard" styleClass="nav-link" text="Dashboard" visible="false" managed="false" />
+        <Button fx:id="loginBtn" onAction="#handleLogin" styleClass="nav-link" text="Log In" />
+        <Button fx:id="registerBtn" onAction="#handleRegister" styleClass="nav-btn-primary" text="Register" />
+        <Button fx:id="logoutBtn" onAction="#handleLogout" styleClass="nav-link" text="Logout" visible="false" managed="false" />
     </children>
 </HBox>
