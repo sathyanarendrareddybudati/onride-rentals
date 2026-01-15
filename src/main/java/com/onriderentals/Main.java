@@ -1,6 +1,7 @@
 package com.onriderentals;
 
 import com.onriderentals.factory.SceneManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,7 +17,7 @@ public class Main extends Application {
         primaryStage.setTitle("OnRide Rentals");
         primaryStage.setWidth(1000);
         primaryStage.setHeight(800);
-        SceneManager.loadScene("/com/onriderentals/view/Home.fxml");
+        SceneManager.loadScene("/com/onriderentals/view/Register.fxml");
         primaryStage.show();
     }
 }
