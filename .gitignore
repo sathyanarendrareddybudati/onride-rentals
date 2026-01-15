@@ -80,3 +80,5 @@ logs/
 
 # Debug logs
 *.log.*
+database.properties
+aws.properties
