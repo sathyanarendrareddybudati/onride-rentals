@@ -27,8 +27,11 @@ public class SceneManager {
         sceneMap.put("Login", "/com/onriderentals/view/Login.fxml");
         sceneMap.put("Register", "/com/onriderentals/view/Register.fxml");
         sceneMap.put("CustomerDashboard", "/com/onriderentals/view/CustomerDashboard.fxml");
+        sceneMap.put("CustomerProfile", "/com/onriderentals/view/CustomerProfile.fxml");
         sceneMap.put("RenterDashboard", "/com/onriderentals/view/RenterDashboard.fxml");
+        sceneMap.put("RenterProfile", "/com/onriderentals/view/RenterProfile.fxml");
         sceneMap.put("AdminDashboard", "/com/onriderentals/view/AdminDashboard.fxml");
+        sceneMap.put("AdminProfile", "/com/onriderentals/view/AdminProfile.fxml");
         sceneMap.put("VehicleDetails", "/com/onriderentals/view/VehicleDetails.fxml");
         sceneMap.put("MyBookings", "/com/onriderentals/view/MyBookings.fxml");
         sceneMap.put("Favorites", "/com/onriderentals/view/Favorites.fxml");

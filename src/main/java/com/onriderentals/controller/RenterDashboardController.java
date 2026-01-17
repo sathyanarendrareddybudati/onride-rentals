@@ -57,6 +57,17 @@ public class RenterDashboardController {
     @FXML
     private Label photoCountLabel;
 
+    @FXML
+    private Label totalEarningsLabel;
+    @FXML
+    private Label listedVehiclesLabel;
+    @FXML
+    private Label activeBookingsLabel;
+    @FXML
+    private Label earningsTrend;
+    @FXML
+    private Label bookingRequests;
+
     private VehicleDAO vehicleDAO;
     private com.onriderentals.dao.VehiclePhotoDAO photoDAO;
     private ObservableList<Vehicle> vehicleList;
@@ -81,7 +92,10 @@ public class RenterDashboardController {
                 (observable, oldValue, newValue) -> populateVehicleForm(newValue));
 
         loadRenterVehicles();
-        // loadRenterStats(); // TODO: Implement stats loading
+        loadRenterStats();
+
+        // Initialize dollar sign prefix for earnings label
+        totalEarningsLabel.setText("$0");
     }
 
     private void populateVehicleForm(Vehicle vehicle) {
@@ -289,6 +303,42 @@ public class RenterDashboardController {
                 }
             });
         }
+    }
+
+    private void loadRenterStats() {
+        int renterId = SessionManager.getInstance().getUserId();
+        
+        // Get total vehicles count
+        List<Vehicle> vehicles = vehicleDAO.getVehiclesByRenterId(renterId);
+        listedVehiclesLabel.setText(String.valueOf(vehicles.size()));
+        
+        // Get total earnings and active bookings
+        double totalEarnings = 0.0;
+        int activeBookings = 0;
+        
+        try {
+            String sql = "SELECT b.* FROM bookings b JOIN vehicles v ON b.vehicle_id = v.vehicle_id WHERE v.renter_id = ? AND b.status = 'CONFIRMED'";
+            try (java.sql.Connection conn = com.onriderentals.dao.Database.getConnection();
+                 java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+                
+                stmt.setInt(1, renterId);
+                java.sql.ResultSet rs = stmt.executeQuery();
+                
+                while (rs.next()) {
+                    totalEarnings += rs.getDouble("total_amount");
+                    // Check if booking is still active
+                    java.time.LocalDate endDate = rs.getDate("end_date").toLocalDate();
+                    if (!endDate.isBefore(java.time.LocalDate.now())) {
+                        activeBookings++;
+                    }
+                }
+            }
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        
+        totalEarningsLabel.setText(String.format("$%.0f", totalEarnings));
+        activeBookingsLabel.setText(String.valueOf(activeBookings));
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

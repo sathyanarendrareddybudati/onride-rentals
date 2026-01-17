@@ -14,6 +14,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.ScrollPane?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.onriderentals.controller.RenterProfileController" styleClass="root" stylesheets="@styles.css">
     <children>
@@ -72,11 +73,11 @@
                                <children>
                                    <VBox styleClass="stat-card">
                                        <children>
-                                           <VBox styleClass="stat-icon-container, icon-green" alignment="CENTER">
+                                           <VBox styleClass="stat-icon-container icon-green" alignment="CENTER">
                                                <Label text="💰" styleClass="stat-icon-label"/>
                                            </VBox>
                                            <VBox styleClass="stat-content">
-                                               <Label fx:id="totalEarningsLabel" text="$0" styleClass="stat-value"/>
+                                               <Label fx:id="totalEarningsLabel" text="0" styleClass="stat-value"/>
                                                <Label text="Total Earnings" styleClass="stat-label"/>
                                            </VBox>
                                        </children>
@@ -84,7 +85,7 @@
                                    
                                    <VBox styleClass="stat-card">
                                        <children>
-                                           <VBox styleClass="stat-icon-container, icon-blue" alignment="CENTER">
+                                           <VBox styleClass="stat-icon-container icon-blue" alignment="CENTER">
                                                <Label text="🚗" styleClass="stat-icon-label"/>
                                            </VBox>
                                            <VBox styleClass="stat-content">
@@ -96,7 +97,7 @@
                                    
                                    <VBox styleClass="stat-card">
                                        <children>
-                                           <VBox styleClass="stat-icon-container, icon-orange" alignment="CENTER">
+                                           <VBox styleClass="stat-icon-container icon-orange" alignment="CENTER">
                                                <Label text="📅" styleClass="stat-icon-label"/>
                                            </VBox>
                                            <VBox styleClass="stat-content">
